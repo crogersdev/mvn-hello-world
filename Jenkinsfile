@@ -1,12 +1,28 @@
 pipeline {
-    agent any
+    agent {
+        kubernetes {
+            yaml '''
+                apiVersion: v1
+                kind: Pod
+                spec:
+                    containers:
+                    - name: maven-foo
+                      image: maven:3.8.7-openjdk-18-slim
+                      tty: true
+                      command: ["cat"]
+                 
+            '''
+        }
+    }
 
     stages {
         stage('Build') {
             steps {
-              docker.image('maven:3.8.7-openjdk-18-slim')
-                echo 'Building...'
-                command line 'mvn clean && mvn build'
+                container('maven-foo') {
+                    sh 'mvn -version || echo "i don\'t have that command"'
+                    sh 'ls -latrh'
+                    sh 'pwd'
+                }
             }
         }
     }
