@@ -22,6 +22,10 @@ pipeline {
                     sh 'mvn -version || echo "i don\'t have that command"'
                     sh 'ls -latrh'
                     sh 'pwd'
+                    sh 'cd harness-app'
+                    sh 'mvn clean'
+                    sh 'mvn build'
+                    sh 'ls -latrh'
                 }
             }
         }
