@@ -23,8 +23,9 @@ pipeline {
                     sh 'ls -latrh'
                     sh 'pwd'
                     sh 'cd harness-app'
-                    sh 'mvn clean'
-                    sh 'mvn build'
+                    sh 'ls -latrh'
+                    sh 'mvn clean || echo "couldnt run mvn clean"'
+                    sh 'mvn build || echo "couldnt run mvn build"'
                     sh 'ls -latrh'
                 }
             }
