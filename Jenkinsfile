@@ -19,14 +19,11 @@ pipeline {
         stage('Build') {
             steps {
                 container('maven-foo') {
-                    sh 'mvn -version || echo "i don\'t have that command"'
-                    sh 'ls -latrh'
-                    sh 'pwd'
-                    sh 'cd harness-app'
-                    sh 'ls -latrh'
-                    sh 'mvn clean || echo "couldnt run mvn clean"'
-                    sh 'mvn build || echo "couldnt run mvn build"'
-                    sh 'ls -latrh'
+                    sh '''
+                    cd harness-app
+                    ls -latrh
+                    mvn clean
+                    '''
                 }
             }
         }
